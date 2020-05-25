@@ -62,4 +62,4 @@ def geo_location(read_long_csv,lat_long):
 def main():
     lat_long_pull("D:\Capstone Project\Dataset\Shrunken_Data.csv","b142105a208be4",'D:\Capstone Project\Dataset\export_shurenk_dat_lon_lat_data.csv')
     time.sleep(5)
-    x= geo_location("D:\Capstone Project\Dataset\export_shurenk_dat_lon_lat_data.csv",[36.778259,-119.417931])
+    geo_location("D:\Capstone Project\Dataset\export_shurenk_dat_lon_lat_data.csv",[36.778259,-119.417931])

@@ -19,7 +19,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f7c8177-fed9-453d-beb1-4f3af885b0f8" name="Default Changelist" comment="" />
+    <list default="true" id="0f7c8177-fed9-453d-beb1-4f3af885b0f8" name="Default Changelist" comment="Updated the code to display the map in the browser">
+      <change beforePath="$PROJECT_DIR$/.idea/Asset-Acquisition.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Asset-Acquisition.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pull lat long plot geolocation.py" beforeDir="false" afterPath="$PROJECT_DIR$/Pull lat long plot geolocation.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,6 +47,35 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Pull lat long plot geolocation" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Asset-Acquisition" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Pull lat long plot geolocation.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.Pull lat long plot geolocation" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -55,6 +88,28 @@
       <option name="presentableId" value="Default" />
       <updated>1590364339706</updated>
     </task>
+    <task id="LOCAL-00001" summary="Primary version of the geo plotting need to be integrated.">
+      <created>1590364920930</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1590364920930</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Primary version of the filtering flag condition includes Vacant filtering.">
+      <created>1590365790298</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1590365790298</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Updated the code to display the map in the browser">
+      <created>1590427399744</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1590427399744</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -68,10 +123,48 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Primary version of the geo plotting need to be integrated." />
+    <MESSAGE value="Primary version of the filtering flag condition includes Vacant filtering." />
+    <MESSAGE value="Updated the code to display the map in the browser" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated the code to display the map in the browser" />
+  </component>
   <component name="WindowStateProjectService">
+    <state x="509" y="25" key="#Pull_lat_long_plot_geolocation" timestamp="1590367666348">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="509" y="25" key="#Pull_lat_long_plot_geolocation/0.0.1600.860@0.0.1600.860" timestamp="1590367666348" />
+    <state x="579" y="134" key="#com.intellij.ide.macro.MacrosDialog" timestamp="1590367660644">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="579" y="134" key="#com.intellij.ide.macro.MacrosDialog/0.0.1600.860@0.0.1600.860" timestamp="1590367660644" />
+    <state width="1579" height="222" key="GridCell.Tab.0.bottom" timestamp="1590426947908">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="1579" height="222" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1590426947908" />
+    <state width="1579" height="222" key="GridCell.Tab.0.center" timestamp="1590426947907">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="1579" height="222" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1590426947907" />
+    <state width="1579" height="222" key="GridCell.Tab.0.left" timestamp="1590426947907">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="1579" height="222" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1590426947907" />
+    <state width="1579" height="222" key="GridCell.Tab.0.right" timestamp="1590426947908">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="1579" height="222" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1590426947908" />
     <state x="579" y="132" key="RollbackChangesDialog" timestamp="1590364812163">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="579" y="132" key="RollbackChangesDialog/0.0.1600.860@0.0.1600.860" timestamp="1590364812163" />
+    <state x="301" y="75" key="SettingsEditor" timestamp="1590426143056">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="301" y="75" key="SettingsEditor/0.0.1600.860@0.0.1600.860" timestamp="1590426143056" />
+    <state x="392" y="163" key="Vcs.Push.Dialog.v2" timestamp="1590427434541">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="392" y="163" key="Vcs.Push.Dialog.v2/0.0.1600.860@0.0.1600.860" timestamp="1590427434541" />
   </component>
 </project>
