@@ -7,6 +7,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import geopy
 import folium
+import webbrowser
+from tqdm import tqdm
 from folium.plugins import FastMarkerCluster
 # Function to geth the latitudes and longitudes of the address(property)
 def lat_long_pull(csv_read,token,csv_write):
@@ -16,7 +18,7 @@ def lat_long_pull(csv_read,token,csv_write):
     lat = []
     long = []
     # Looping on the dataframe and calling the locationIQ API
-    for x,rows in data.iterrows():
+    for x,rows in tqdm(data.iterrows()):
         state = str(rows['state'])
         # Concadinating the address fields of the data frame to input into locationIQ API
         address = rows['adress']+","+rows['city']+","+state+","+str(rows['zip'])
@@ -33,7 +35,7 @@ def lat_long_pull(csv_read,token,csv_write):
         long.append(out['lon'])
         # The API allows 2 records per second so I used sleep function to makesure it is followed
         time.sleep(1)
-        print("in")
+        #print("in")
     #print(lat,long)
     # Coverting the lists(lat,long) into series so that I can push into the dataframe
     data['lat']=pd.Series(lat)
@@ -50,8 +52,14 @@ def geo_location(read_long_csv,lat_long):
                             tiles='CartoDB dark_matter')
     FastMarkerCluster(data=list(zip(df['lat'].values, df['lon'].values))).add_to(folium_map)
     folium.LayerControl().add_to(folium_map)
+    # Saving the map in a html file
+    folium_map.save(outfile='map.html')
+    out = "map.html"
+    # opening the map html file on browser
+    webbrowser.open(out, new=2)
     # returning the plotted map
     return folium_map
-lat_long_pull("D:\Capstone Project\Dataset\Shrunken_Data.csv","b142105a208be4",'D:\Capstone Project\\Dataset\export_shurenk_dat_lon_lat_data.csv')
-time.sleep(5)
-geo_location("D:\Capstone Project\Dataset\export_shurenk_dat_lon_lat_data.csv",[36.778259,-119.417931])
+def main():
+    lat_long_pull("D:\Capstone Project\Dataset\Shrunken_Data.csv","b142105a208be4",'D:\Capstone Project\Dataset\export_shurenk_dat_lon_lat_data.csv')
+    time.sleep(5)
+    x= geo_location("D:\Capstone Project\Dataset\export_shurenk_dat_lon_lat_data.csv",[36.778259,-119.417931])
