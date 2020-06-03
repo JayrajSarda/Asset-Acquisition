@@ -28,7 +28,7 @@ def main():
 
     # get the file output
     result_out(result_list)
-    
+
 # -----------------------------------------------------------------------------
 # This function will take the dataframe and shrink the data through
 # constant conditions given to us in pdf
@@ -63,7 +63,7 @@ def red_flags_check(property_list):
         if "PO BOX" in dic['mail_address']:
             dic['mail_undeliv'] = True
         #tax deliquent
-        # -- 
+        # --
 
         #vacant
         # --
@@ -92,9 +92,7 @@ def red_flag_properties(conditions_checked):
 def result_out(result_list):
     result_df = pd.DataFrame(result_list)
     result_df.to_csv('output.csv', index = False)
-    
+
 
 #------------------------------------------------------------------------------
 main()
-
-
