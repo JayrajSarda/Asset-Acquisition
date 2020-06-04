@@ -1,3 +1,4 @@
+import pymysql
 import mysql.connector
 import pandas as pd
 import requests
@@ -14,8 +15,10 @@ vacancy_list = []
 tax_del_list = []
 token = "b142105a208be4"
 loader = pd.DataFrame()
+final_out = []
+processed_file = pd.DataFrame()
 
-
+#------------------- Main Function ---------------------#
 def main():
 
     #take the input filter
@@ -42,6 +45,9 @@ def main():
     tax_del = cursor.fetchall()
     tax_del_df = pd.DataFrame(tax_del, columns = cursor.column_names)
     tax_del_list = tax_del_df.to_dict('records')
+
+    #close the mysql connection
+    connection.close()
 
 
 
@@ -82,11 +88,29 @@ def main():
     #pull latitude and longitude of the properties from
     # locationIQ
     loader = loc_cord_pull(output, token)
+
+    # get today's date
+    final_out = get_today_date(loader)
+
+    # push data to MySQL
+    processed_file = pd.DataFrame(final_out)
+    #processed_file["rec_date_1"] = pd.to_datetime(processed_file.rec_date_1)
+    #processed_file["rec_date_2"] = pd.to_datetime(processed_file.rec_date_2)
+    #processed_file["purchase_date"] = pd.to_datetime(processed_file.purchase_date)
+    #processed_file["processed_on"] = pd.to_datetime(processed_file.processed_on)
+    processed_file["rec_date_1"] = processed_file["rec_date_1"].astype(str)
+    processed_file["rec_date_2"] = processed_file["rec_date_2"].astype(str)
+    processed_file["purchase_date"] = processed_file["purchase_date"].astype(str)
+    processed_file["processed_on"] = processed_file["processed_on"].astype(str)
+    processed_file = processed_file.where((pd.notnull(processed_file)), None)
+    push_data_to_mysql(processed_file)
     
 
 
 
 
+#------------------ Custom Functions ----------------------#
+#----------------------------------------------------------#
 
 
 # Initial constant conditions to filter the input files
@@ -96,19 +120,21 @@ def initial_filter(df):
                  (df["listed_for_sale"] == 0)]
     return filtered_df
 
+#-----------------------------------------------------
 
 # Adding default flag conditions
 def default_flags(filtered_df):
     property_dict = filtered_df.to_dict('records')
 
     for dic in property_dict:
-        dic['tax_deliquent'] = False
-        dic['mail_undeliv'] = False
-        dic['vacant'] = False
-        dic['deceased'] = False
+        dic['tax_deliquent'] = 0
+        dic['mail_undeliv'] = 0
+        dic['vacant'] = 0
+        dic['deceased'] = 0
 
     return property_dict
 
+#-----------------------------------------------------
 
 # Module to check the red flag conditions
 def flag_check(property_list, vacancy_list, tax_del_list):
@@ -124,30 +150,33 @@ def flag_check(property_list, vacancy_list, tax_del_list):
 
     for props in property_list:
         if props["apn"] in vac_apn:
-            props["vacant"] = True
+            props["vacant"] = 1
         if props["apn"] in tax_apn:
-            props["tax_deliquent"] = True
+            props["tax_deliquent"] = 1
 
     return property_list
 
+#-----------------------------------------------------
 
 # Filter out the red flag properties
 def final_filter(resultant_list):
     result = []
     for p in resultant_list:
-        if(p['mail_undeliv'] == True or p['tax_deliquent'] == True or
-           p['vacant'] == True or p['deceased'] == True):
+        if(p['mail_undeliv'] == 1 or p['tax_deliquent'] == 1 or
+           p['vacant'] == 1 or p['deceased'] == 1):
             result.append(p)
 
     return result
+
+#-----------------------------------------------------
 
 # get the count of flags for each property
 def flag_count(final_list):
     count = 0
     for b in final_list:
-        if b["vacant"] == True and b["tax_deliquent"]:
+        if b["vacant"] == 1 and b["tax_deliquent"] == 1:
            count = 2
-        elif b["tax_deliquent"] == True or b["vacant"]:
+        elif b["tax_deliquent"] == 1 or b["vacant"] == 1:
             count = 1
         else:
             count = 0
@@ -156,7 +185,9 @@ def flag_count(final_list):
 
     return final_list
 
+#-----------------------------------------------------
 
+# Pull location coordinates
 def loc_cord_pull(output, token):
     data = pd.DataFrame(output)
     YOUR_PRIVATE_TOKEN = token
@@ -184,8 +215,36 @@ def loc_cord_pull(output, token):
     data['lon']=long
     return data
 
-def get_today_date():
-    
+#-----------------------------------------------------
+
+# Get todays date and assign for each row
+def get_today_date(loader):
+    out_list = loader.to_dict('records')
+    for i in out_list:
+        i["processed_on"] = str(date.today())
+
+    return out_list
+
+#-----------------------------------------------------
+
+# Write dataframe to MySQL table
+def push_data_to_mysql(frame):
+    conn = pymysql.connect(host='localhost',
+                           user='root',
+                           db='realestate'
+                            )
+    cursor_mysql = conn.cursor()
+    cols = "`,`".join([str(i) for i in frame.columns.to_list()])
+    for i,row in frame.iterrows():
+        sql = "INSERT INTO `processed` (`" + cols + "`) VALUES (" + "%s,"*(len(row)-1) + "%s)"
+        cursor_mysql.execute(sql, tuple(row))
+        conn.commit()
+        
 
 
+
+
+
+
+#-- Call to main function
 main()
