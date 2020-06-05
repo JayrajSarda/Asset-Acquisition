@@ -27,9 +27,10 @@ def main():
 
     #connect to MySQL database
     connection = mysql.connector.connect(
-        host = 'localhost',
+        host = '161.35.113.255',
         database = 'realestate',
-        user = 'root'
+        user = 'jaysa',
+        password = 'jaysa01'
     )
     cursor = connection.cursor()
 
@@ -94,10 +95,10 @@ def main():
 
     # push data to MySQL
     processed_file = pd.DataFrame(final_out)
-    #processed_file["rec_date_1"] = pd.to_datetime(processed_file.rec_date_1)
-    #processed_file["rec_date_2"] = pd.to_datetime(processed_file.rec_date_2)
-    #processed_file["purchase_date"] = pd.to_datetime(processed_file.purchase_date)
-    #processed_file["processed_on"] = pd.to_datetime(processed_file.processed_on)
+    processed_file["rec_date_1"] = pd.to_datetime(processed_file.rec_date_1)
+    processed_file["rec_date_2"] = pd.to_datetime(processed_file.rec_date_2)
+    processed_file["purchase_date"] = pd.to_datetime(processed_file.purchase_date)
+    processed_file["processed_on"] = pd.to_datetime(processed_file.processed_on)
     processed_file["rec_date_1"] = processed_file["rec_date_1"].astype(str)
     processed_file["rec_date_2"] = processed_file["rec_date_2"].astype(str)
     processed_file["purchase_date"] = processed_file["purchase_date"].astype(str)
@@ -229,8 +230,9 @@ def get_today_date(loader):
 
 # Write dataframe to MySQL table
 def push_data_to_mysql(frame):
-    conn = pymysql.connect(host='localhost',
-                           user='root',
+    conn = pymysql.connect(host='161.35.113.255',
+                           user='jaysa',
+                           password = 'jaysa01',
                            db='realestate'
                             )
     cursor_mysql = conn.cursor()
