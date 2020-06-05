@@ -104,6 +104,9 @@ def main():
     processed_file["purchase_date"] = processed_file["purchase_date"].astype(str)
     processed_file["processed_on"] = processed_file["processed_on"].astype(str)
     processed_file = processed_file.where((pd.notnull(processed_file)), None)
+    processed_file["rec_date_1"] = processed_file["rec_date_1"].apply(lambda x : None if x == "NaT" else x)
+    processed_file["rec_date_2"] = processed_file["rec_date_2"].apply(lambda x : None if x == "NaT" else x)
+    processed_file["purchase_date"] = processed_file["purchase_date"].apply(lambda x : None if x == "NaT" else x)
     push_data_to_mysql(processed_file)
     
 
@@ -238,7 +241,7 @@ def push_data_to_mysql(frame):
     cursor_mysql = conn.cursor()
     cols = "`,`".join([str(i) for i in frame.columns.to_list()])
     for i,row in frame.iterrows():
-        sql = "INSERT INTO `processed` (`" + cols + "`) VALUES (" + "%s,"*(len(row)-1) + "%s)"
+        sql = "INSERT INTO `processed_file` (`" + cols + "`) VALUES (" + "%s,"*(len(row)-1) + "%s)"
         cursor_mysql.execute(sql, tuple(row))
         conn.commit()
         
